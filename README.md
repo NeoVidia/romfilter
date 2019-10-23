@@ -1,11 +1,11 @@
 romfilter
 ==============
-A simple Python 3.8 application for filtering roms.
+A simple Python 3.7.17 application for filtering roms.
 
 General Usage
 -------------
 
-Tkinter GUI Python 3.8 scripts. Used to filter out files by file extension and tags denoted by "()" and "[]". 
+Tkinter GUI Python 3.7.17 scripts. Used to filter out files by file extension and tags denoted by "()" and "[]". 
 A more comprehensive list of tags and their meaning can be found on https://www.emuparadise.me/help/romnames.php .
 
 Has the option to remove duplicates by name devoid of tags and file extensions, 
