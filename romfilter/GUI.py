@@ -10,7 +10,6 @@ from tkinter import filedialog, Frame, Label, Button, Checkbutton, Text, Boolean
 #from tkinter.filedialog import FileDialog;
 from romfilter.FileAnalyzer import FileAnalyzer;
 from romfilter.Filter import Filter;
-import ctypes;
 import os;
 
 
@@ -22,7 +21,6 @@ class MainWindow (object):
     Analyzers = None;
     FilterGUI = None;
     
-    user32 = None;
     root = None;
     
     directoryFrame = None;
@@ -36,21 +34,23 @@ class MainWindow (object):
     windowWidth = 870;
     windowHeight = 150;
     
-    screenwidth = 800;
-    screenheight = 600;
+    screenWidth = 800;
+    screenHeight = 600;
     
     defaultPath = '';
-    #defaultPath = 'F:/Firefox/SG_GN-MD-32X/FULL Sega Genesis -- Mega Drive -- 32X (GoodGen 3.00)[GoodMerged]/';
+
 
     
     def __init__(self):
         print('Initializing Main GUI');
         
         
-        #Create window        
-        self.user32 = ctypes.windll.user32;
-        self.screenWidth = self.user32.GetSystemMetrics(0);
-        self.screenHeight = self.user32.GetSystemMetrics(1);
+        #Create window
+        try:        
+            self.defaultPath = os.path.expanduser('~');
+        except:
+            self.defaultPath = '';
+        
         screenX = int(self.screenWidth / 2 - self.windowWidth / 2);
         screenY = int(self.screenHeight / 2 - self.windowHeight / 2);
         
@@ -83,6 +83,8 @@ class MainWindow (object):
         
         #Populate UI
         self.SetDirectory(self.defaultPath);
+        
+        self.root.resizable(False, False)
         
         
         
@@ -284,10 +286,12 @@ class GUISorting (object):
         
         
         startButton.pack(side = RIGHT, padx = 15, pady = 15);
-        labelRemoveDuplicated.pack(side = RIGHT);
+        
         self.buttonRemoveDuplicate.pack(side = RIGHT);
-        labelMatchSingleTag.pack(side = RIGHT);
+        labelRemoveDuplicated.pack(side = RIGHT);
+        
         self.buttonMatchSingleTag.pack(side = RIGHT);
+        labelMatchSingleTag.pack(side = RIGHT);
         
         #buttonRemoveDuplicate.select();
 

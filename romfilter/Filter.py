@@ -14,24 +14,25 @@ class Filter(object):
     
     
     def __init__(self, filePath, files = [], extensions = [], tags = [], removeDuplicates = False, matchSingleTag = False):
-
+        self.trimList = [];
+        
         matchAllTags = not matchSingleTag;
         allowDuplicate = not removeDuplicates;
         print('\n----------------------------------------Start Filter----------------------------------------------');
         #filter by extension
-        for file in files:
+        for filelist in files:
             extensionMatch = False;
             tagMatch = True;
 
             #Filter by extension
             for option in extensions:
-                if option[1].get() == True and option[0] == file[2]:
+                if option[1].get() == True and option[0] == filelist[2]:
                     extensionMatch = True;
                     
             #Filter by tag
             if extensionMatch:    
                 allowedList = [];
-                for fileTags in file[3]:
+                for fileTags in filelist[3]:
                     allowed = True;
                     
                     #Compare tag to allowed list
@@ -54,8 +55,8 @@ class Filter(object):
             
             #List files to remove based on tags and extensions
             if not extensionMatch or not tagMatch:
-                print(file[0]+'  Will be removed');
-                self.trimList.append(file);
+                print(filelist[0]+'  Will be removed');
+                self.trimList.append(filelist);
                 
         print('\n-----------------------------------------End Filter-----------------------------------------------');
         #If we don't allow duplicates, begin removing them always keeps first found.
@@ -63,11 +64,11 @@ class Filter(object):
 
 
         if not allowDuplicate:
-            for file in files:
+            for filelist in files:
                 trimmed = False;
                 for deletedFile in self.trimList:
-                    if file[0] == deletedFile[0]:
-                        #print(file[0]+' Has already been removed no need to compare');
+                    if filelist[0] == deletedFile[0]:
+                        #print(filelist[0]+' Has already been removed no need to compare');
                         trimmed = True;
                 
                 if not trimmed:
@@ -79,7 +80,7 @@ class Filter(object):
                                 trimmed2 = True;
                         
                         if not trimmed2:
-                            if file[1] == file2[1] and file[0] != file2[0]:
+                            if filelist[1] == file2[1] and filelist[0] != file2[0]:
                                 print(file2[0]+'  Duplicate will be removed');
                                 self.trimList.append(file2);
                             
@@ -100,13 +101,13 @@ class Filter(object):
                     
         #Move filtered files
         print('\n----------------------------------------Start Moving----------------------------------------------');
-        for file in self.trimList:
+        for filelist in self.trimList:
             
-            if not os.path.isfile(filePath+file[0]):
-                print('ERROR 404: '+filePath+file[0]+' not found');
+            if not os.path.isfile(filePath+filelist[0]):
+                print('ERROR 404: '+filePath+filelist[0]+' not found');
             else:
                                 
-                move(filePath+file[0], trash+file[0]);
+                move(filePath+filelist[0], trash+filelist[0]);
             
             
 
