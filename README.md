@@ -14,6 +14,13 @@ therefor it cannot see the difference between 'game (x)[y].exe' and 'game [z][a]
 The default behaviour is to only keep files where all selected tags match every tag the file contains. 
 Ticking 'Match Single Tag' will override this behaviour and keep a file if even a single tag matches.
 
+Instructions
+-------------
+To start this application from command line, navigate to where the romfolder is located and start it using:
+
+python -m romfilter
+
+
 Binary File
 ------
 
